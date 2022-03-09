@@ -685,8 +685,10 @@ class GetDelegate extends RouterDelegate<RouteDecoder>
     final onStackPage = _activePages
         .firstWhereOrNull((element) => element.route?.key == res.route?.key);
 
-    /// There are no duplicate routes in the stack
-    if (onStackPage == null) {
+    if (mid == null) {
+      // Middleware return null so we should prevent from route jump
+    } else if (onStackPage == null) {
+      /// There are no duplicate routes in the stack
       _activePages.add(res);
     } else {
       /// There are duplicate routes, reorder
